@@ -75,3 +75,15 @@ exports.delete = async (req, res) => {
     res.status(400).json(err);
   }
 };
+
+exports.login = async (req, res) => {
+  const { email, password } = req.body;
+
+  const user = await User.findOne({ email: email, password: password });
+
+  if (user) {
+    res.status(200).json({ user: user, message: "Login successful" });
+  } else {
+    res.status(201).json({ message: "Login failed" });
+  }
+};
